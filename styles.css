@@ -1,23 +1,61 @@
+/* 전체 레이아웃 설정 */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
 }
 
-table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
+.container {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 button {
-  margin: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: none;
 }
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
