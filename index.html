@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>향수 추천 웹사이트</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>향수 추천 설문</h1>
+    <form id="surveyForm">
+        <div>
+            <label>이름: <input type="text" name="name" required></label>
+        </div>
+        <div>
+            <label>1번 질문 (환경 선택): 
+                <select name="q1" required>
+                    <option value="Herb">A - 평온한 정원 (Herb)</option>
+                    <option value="Fruit">B - 과일 가득 과수원 (Fruit)</option>
+                    <option value="Cloud">C - 깨끗한 공간 (Cloud)</option>
+                    <option value="Floral">D - 꽃이 만발한 들판 (Floral)</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>2번 질문 (선호 선택): 
+                <select name="q2" required>
+                    <option value="first">첫 번째</option>
+                    <option value="second">두 번째</option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>3번 질문 응답:
+                <select name="q3" required>
+                    <option value="very_no">전혀 아니다</option>
+                    <option value="no">아니다</option>
+                    <option value="neutral">보통이다</option>
+                    <option value="yes">그렇다</option>
+                    <option value="very_yes">매우 그렇다</option>
+                </select>
+            </label>
+        </div>
+        <button type="button" onclick="submitForm()">추천 생성</button>
+    </form>
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
