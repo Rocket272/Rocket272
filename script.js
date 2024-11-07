@@ -20,44 +20,53 @@ const subPerfumeScores = {
     일랑일랑: [4, 3, 5]
 };
 
-function calculatePerfumes() {
-    const resultTable = document.getElementById("resultTable");
-    resultTable.innerHTML = "<table><tr><th>이름</th><th>메인 향</th><th>서브 향 1</th><th>서브 향 2</th></tr>";
+function calculateRecommendations() {
+    const users = document.querySelectorAll("#user-table tbody tr");
+    const resultsBody = document.getElementById("result-body");
 
-    for (let i = 1; i <= 12; i++) {
-        const name = document.querySelector(`input[name="name${i}"]`).value;
-        const q1 = document.querySelector(`input[name="q1_${i}"]`).value.split(',').map(x => x.trim());
-        const q2_choice = parseInt(document.querySelector(`select[name="q2_${i}"]`).value);
-        const q3 = parseInt(document.querySelector(`select[name="q3_${i}"]`).value);
-        const q4 = parseInt(document.querySelector(`select[name="q4_${i}"]`).value);
-        const q5 = parseInt(document.querySelector(`select[name="q5_${i}"]`).value);
+    resultsBody.innerHTML = "";  // 결과 테이블 초기화
 
-        const mainCategory = q1[0];
-        const mainPerfume = perfumes[mainCategory].Main[q2_choice - 1];
+    users.forEach(row => {
+        const name = row.querySelector(".name").value;
+        const rank = row.querySelector(".rank").value.split(",");
+        const choices = row.querySelector(".choices").value.split(",");
+        const responses = row.querySelectorAll(".response");
 
-        const subCategoryGroups = q1.slice(1, 3);
-        const scores = [q3, q4, q5];
-        const subScores = { low: 0, mid: 0, high: 0 };
-
-        scores.forEach(score => {
-            if (score === 0) subScores.low += 3;
-            else if (score === 1) { subScores.low += 1; subScores.mid += 1; }
-            else if (score === 2) subScores.mid += 2;
-            else if (score === 3) { subScores.mid += 1; subScores.high += 1; }
-            else if (score === 4) subScores.high += 3;
+        let scoreLower = 0, scoreMedium = 0, scoreHigher = 0;
+        responses.forEach(response => {
+            const value = response.value;
+            if (value === "전혀 아니다") scoreLower += 3;
+            else if (value === "아니다") { scoreLower += 1; scoreMedium += 1; }
+            else if (value === "보통이다") scoreMedium += 2;
+            else if (value === "그렇다") { scoreMedium += 1; scoreHigher += 1; }
+            else if (value === "매우 그렇다") scoreHigher += 3;
         });
 
-        const selectedSubPerfumes = subCategoryGroups.map(category => {
+        // 메인 향 결정
+        const mainCategory = rank[0];
+        const mainPerfume = perfumes[mainCategory].Main[choices[0] === "1" ? 0 : 1];
+
+        // 서브 향 결정
+        const subCategories = rank.slice(1, 3);  // 서브 향 그룹 결정
+        const selectedSubPerfumes = subCategories.map(category => {
             const subOptions = perfumes[category].Sub;
             const scoredSubOptions = subOptions.map(sub => ({
                 name: sub,
-                score: subPerfumeScores[sub][0] * subScores.low + subPerfumeScores[sub][1] * subScores.mid + subPerfumeScores[sub][2] * subScores.high
+                score: subPerfumeScores[sub][0] * scoreLower + subPerfumeScores[sub][1] * scoreMedium + subPerfumeScores[sub][2] * scoreHigher
             }));
             scoredSubOptions.sort((a, b) => b.score - a.score);
             return scoredSubOptions[0].name;
         });
 
-        resultTable.innerHTML += `<tr><td>${name}</td><td>${mainPerfume}</td><td>${selectedSubPerfumes[0]}</td><td>${selectedSubPerfumes[1]}</td></tr>`;
-    }
-    resultTable.innerHTML += "</table>";
+        // 결과 추가
+        const resultRow = `
+          <tr>
+            <td>${name}</td>
+            <td>${mainPerfume}</td>
+            <td>${selectedSubPerfumes[0]}</td>
+            <td>${selectedSubPerfumes[1]}</td>
+          </tr>
+        `;
+        resultsBody.innerHTML += resultRow;
+    });
 }
