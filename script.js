@@ -24,14 +24,23 @@ function calculateRecommendations() {
     const users = document.querySelectorAll("#user-table tbody tr");
     const resultsBody = document.getElementById("result-body");
 
-    resultsBody.innerHTML = "";  // 결과 테이블 초기화
+    // 기존 결과 초기화
+    resultsBody.innerHTML = "";  
 
     users.forEach(row => {
-        const name = row.querySelector(".name").value;
-        const rank = row.querySelector(".rank").value.split(",");
+        const name = row.querySelector(".name").value.trim();
+        const rank = row.querySelector(".rank").value.split(",").map(x => x.trim());
         const choice = row.querySelector(".choice").value;
         const responses = row.querySelectorAll(".response");
 
+        // 이름이나 순위가 비어있는 경우 예외 처리
+        if (!name || rank.length !== 4 || !perfumes[rank[0]]) {
+            const resultRow = `<tr><td colspan="4">이름 또는 입력값이 잘못되었습니다. 확인해 주세요.</td></tr>`;
+            resultsBody.innerHTML += resultRow;
+            return;
+        }
+
+        // 응답을 통해 점수 계산
         let scoreLower = 0, scoreMedium = 0, scoreHigher = 0;
         responses.forEach(response => {
             const value = response.value;
@@ -43,11 +52,11 @@ function calculateRecommendations() {
         });
 
         // 메인 향 결정
-        const mainCategory = rank[0].trim();
+        const mainCategory = rank[0];
         const mainPerfume = perfumes[mainCategory].Main[choice - 1];
 
         // 서브 향 결정
-        const subCategories = rank.slice(1, 3).map(cat => cat.trim());  // 서브 향 그룹 결정
+        const subCategories = rank.slice(1, 3); // 서브 향 그룹 두 개 선택
         const selectedSubPerfumes = subCategories.map(category => {
             const subOptions = perfumes[category].Sub;
             const scoredSubOptions = subOptions.map(sub => ({
@@ -58,7 +67,7 @@ function calculateRecommendations() {
             return scoredSubOptions[0].name;
         });
 
-        // 결과 추가
+        // 결과 행 생성 및 출력
         const resultRow = `
           <tr>
             <td>${name}</td>
