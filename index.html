@@ -8,77 +8,84 @@
 </head>
 <body>
 
-  <h1>향수 추천 시스템</h1>
-  <table id="user-table">
-    <thead>
-      <tr>
-        <th>이름</th>
-        <th>1번 질문 (A, B, C, D 순위)</th>
-        <th>2번 질문 (A/B/C/D - 첫 번째, 두 번째 선택)</th>
-        <th>3번 질문</th>
-        <th>4번 질문</th>
-        <th>5번 질문</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 12명의 사용자 행 생성 -->
-      <script>
-        for (let i = 0; i < 12; i++) {
-          document.write(`
-            <tr>
-              <td><input type="text" class="name" placeholder="이름"></td>
-              <td><input type="text" class="rank" placeholder="예: A,B,C,D"></td>
-              <td><input type="text" class="choices" placeholder="예: A,C"></td>
-              <td>
-                <select class="response">
-                  <option>전혀 아니다</option>
-                  <option>아니다</option>
-                  <option>보통이다</option>
-                  <option>그렇다</option>
-                  <option>매우 그렇다</option>
-                </select>
-              </td>
-              <td>
-                <select class="response">
-                  <option>전혀 아니다</option>
-                  <option>아니다</option>
-                  <option>보통이다</option>
-                  <option>그렇다</option>
-                  <option>매우 그렇다</option>
-                </select>
-              </td>
-              <td>
-                <select class="response">
-                  <option>전혀 아니다</option>
-                  <option>아니다</option>
-                  <option>보통이다</option>
-                  <option>그렇다</option>
-                  <option>매우 그렇다</option>
-                </select>
-              </td>
-            </tr>
-          `);
-        }
-      </script>
-    </tbody>
-  </table>
+  <div class="container">
+    <h1>향수 추천 시스템</h1>
+    <table id="user-table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>1번 질문 (A, B, C, D 순위)</th>
+          <th>2번 질문 (첫 번째/두 번째)</th>
+          <th>3번 질문</th>
+          <th>4번 질문</th>
+          <th>5번 질문</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 12명의 사용자 행 생성 -->
+        <script>
+          for (let i = 0; i < 12; i++) {
+            document.write(`
+              <tr>
+                <td><input type="text" class="name" placeholder="이름"></td>
+                <td><input type="text" class="rank" placeholder="예: A,B,C,D"></td>
+                <td>
+                  <select class="choice">
+                    <option value="1">첫 번째</option>
+                    <option value="2">두 번째</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="response">
+                    <option>전혀 아니다</option>
+                    <option>아니다</option>
+                    <option>보통이다</option>
+                    <option>그렇다</option>
+                    <option>매우 그렇다</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="response">
+                    <option>전혀 아니다</option>
+                    <option>아니다</option>
+                    <option>보통이다</option>
+                    <option>그렇다</option>
+                    <option>매우 그렇다</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="response">
+                    <option>전혀 아니다</option>
+                    <option>아니다</option>
+                    <option>보통이다</option>
+                    <option>그렇다</option>
+                    <option>매우 그렇다</option>
+                  </select>
+                </td>
+              </tr>
+            `);
+          }
+        </script>
+      </tbody>
+    </table>
 
-  <button onclick="calculateRecommendations()">추천 받기</button>
+    <button onclick="calculateRecommendations()">추천 받기</button>
 
-  <h2>추천 결과</h2>
-  <table id="result-table">
-    <thead>
-      <tr>
-        <th>이름</th>
-        <th>메인 향</th>
-        <th>서브 향 1</th>
-        <th>서브 향 2</th>
-      </tr>
-    </thead>
-    <tbody id="result-body">
-      <!-- 결과 행 추가 예정 -->
-    </tbody>
-  </table>
+    <h2>추천 결과</h2>
+    <table id="result-table">
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>메인 향</th>
+          <th>서브 향 1</th>
+          <th>서브 향 2</th>
+        </tr>
+      </thead>
+      <tbody id="result-body">
+        <!-- 결과 행 추가 예정 -->
+      </tbody>
+    </table>
+  </div>
 
   <script src="script.js"></script>
 </body>
