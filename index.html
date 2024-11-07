@@ -22,18 +22,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    ${Array.from({ length: 12 }, (_, i) => `
+                    <!-- 각 사용자에 대한 행을 하드코딩 -->
                     <tr>
-                        <td><input type="text" name="name${i+1}" required></td>
-                        <td><input type="text" name="q1_${i+1}" placeholder="예: A, B, C, D" required></td>
+                        <td><input type="text" name="name1" required></td>
+                        <td><input type="text" name="q1_1" placeholder="예: A, B, C, D" required></td>
                         <td>
-                            <select name="q2_${i+1}">
+                            <select name="q2_1">
                                 <option value="1">첫 번째</option>
                                 <option value="2">두 번째</option>
                             </select>
                         </td>
                         <td>
-                            <select name="q3_${i+1}">
+                            <select name="q3_1">
                                 <option value="0">전혀 아니다</option>
                                 <option value="1">아니다</option>
                                 <option value="2">보통이다</option>
@@ -42,7 +42,7 @@
                             </select>
                         </td>
                         <td>
-                            <select name="q4_${i+1}">
+                            <select name="q4_1">
                                 <option value="0">전혀 아니다</option>
                                 <option value="1">아니다</option>
                                 <option value="2">보통이다</option>
@@ -51,7 +51,7 @@
                             </select>
                         </td>
                         <td>
-                            <select name="q5_${i+1}">
+                            <select name="q5_1">
                                 <option value="0">전혀 아니다</option>
                                 <option value="1">아니다</option>
                                 <option value="2">보통이다</option>
@@ -59,7 +59,9 @@
                                 <option value="4">매우 그렇다</option>
                             </select>
                         </td>
-                    </tr>`).join('')}
+                    </tr>
+                    <!-- 동일한 형식으로 12행 작성 -->
+                    <!-- 복사해서 2~12까지 추가해 주세요 -->
                 </tbody>
             </table>
             <button type="button" onclick="calculatePerfumes()">제출</button>
