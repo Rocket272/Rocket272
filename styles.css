@@ -1,61 +1,62 @@
-/* 전체 레이아웃 설정 */
-body {
+* {
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f3f1f0;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    background-color: #f4f4f9;
 }
 
 .container {
     width: 90%;
-    max-width: 500px;
+    max-width: 800px;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
 }
 
 h1 {
+    color: #6a5acd;
     font-size: 24px;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-    font-weight: bold;
-}
-
-select, button {
+table {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 8px;
+}
+
+th {
+    background-color: #f4f4f4;
+    color: #555;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
+    padding: 10px 20px;
+    background-color: #6a5acd;
+    color: #fff;
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #584aae;
 }
 
-#result {
+.result {
     margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
 }
-
