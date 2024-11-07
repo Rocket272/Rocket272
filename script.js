@@ -29,7 +29,7 @@ function calculateRecommendations() {
     users.forEach(row => {
         const name = row.querySelector(".name").value;
         const rank = row.querySelector(".rank").value.split(",");
-        const choices = row.querySelector(".choices").value.split(",");
+        const choice = row.querySelector(".choice").value;
         const responses = row.querySelectorAll(".response");
 
         let scoreLower = 0, scoreMedium = 0, scoreHigher = 0;
@@ -43,11 +43,11 @@ function calculateRecommendations() {
         });
 
         // 메인 향 결정
-        const mainCategory = rank[0];
-        const mainPerfume = perfumes[mainCategory].Main[choices[0] === "1" ? 0 : 1];
+        const mainCategory = rank[0].trim();
+        const mainPerfume = perfumes[mainCategory].Main[choice - 1];
 
         // 서브 향 결정
-        const subCategories = rank.slice(1, 3);  // 서브 향 그룹 결정
+        const subCategories = rank.slice(1, 3).map(cat => cat.trim());  // 서브 향 그룹 결정
         const selectedSubPerfumes = subCategories.map(category => {
             const subOptions = perfumes[category].Sub;
             const scoredSubOptions = subOptions.map(sub => ({
