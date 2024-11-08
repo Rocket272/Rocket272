@@ -31,46 +31,38 @@ function calculateRecommendations() {
         const name = row.querySelector(".name").value.trim();
         const rank = row.querySelector(".rank").value.split(",").map(x => x.trim());
         const choice = row.querySelector(".choice").value;
-        const responses = row.querySelectorAll(".response");
+        const responses = Array.from(row.querySelectorAll(".response")).map(select => select.value);
 
-        // 이름이나 순위가 비어있는 경우 예외 처리
-        if (!name || rank.length !== 4 || !perfumes[rank[0]]) {
-            const resultRow = `<tr><td colspan="4">이름 또는 입력값이 잘못되었습니다. 확인해 주세요.</td></tr>`;
-            resultsBody.innerHTML += resultRow;
-            return;
-        }
-
-        // 응답을 통해 점수 계산
+        // 점수 계산
         let scoreLower = 0, scoreMedium = 0, scoreHigher = 0;
         responses.forEach(response => {
-            const value = response.value;
-            if (value === "전혀 아니다") scoreLower += 3;
-            else if (value === "아니다") { scoreLower += 1; scoreMedium += 1; }
-            else if (value === "보통이다") scoreMedium += 2;
-            else if (value === "그렇다") { scoreMedium += 1; scoreHigher += 1; }
-            else if (value === "매우 그렇다") scoreHigher += 3;
+            if (response === "전혀 아니다") scoreLower += 3;
+            else if (response === "아니다") { scoreLower += 1; scoreMedium += 1; }
+            else if (response === "보통이다") scoreMedium += 2;
+            else if (response === "그렇다") { scoreMedium += 1; scoreHigher += 1; }
+            else if (response === "매우 그렇다") scoreHigher += 3;
         });
 
         // 메인 향 결정
         const mainCategory = rank[0];
-        const mainPerfume = perfumes[mainCategory].Main[choice - 1];
+        const mainPerfume = perfumes[mainCategory]?.Main[choice - 1] || "기본 메인 향";
 
         // 서브 향 결정
-        const subCategories = rank.slice(1, 3); // 서브 향 그룹 두 개 선택
+        const subCategories = rank.slice(1, 3);
         const selectedSubPerfumes = subCategories.map(category => {
-            const subOptions = perfumes[category].Sub;
+            const subOptions = perfumes[category]?.Sub || [];
             const scoredSubOptions = subOptions.map(sub => ({
                 name: sub,
                 score: subPerfumeScores[sub][0] * scoreLower + subPerfumeScores[sub][1] * scoreMedium + subPerfumeScores[sub][2] * scoreHigher
             }));
             scoredSubOptions.sort((a, b) => b.score - a.score);
-            return scoredSubOptions[0].name;
+            return scoredSubOptions[0]?.name || "기본 서브 향";
         });
 
-        // 결과 행 생성 및 출력
+        // 결과 행 추가
         const resultRow = `
           <tr>
-            <td>${name}</td>
+            <td>${name || "익명"}</td>
             <td>${mainPerfume}</td>
             <td>${selectedSubPerfumes[0]}</td>
             <td>${selectedSubPerfumes[1]}</td>
