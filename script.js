@@ -29,11 +29,21 @@ function calculateRecommendations() {
 
     users.forEach(row => {
         const name = row.querySelector(".name").value.trim();
-        const rank = row.querySelector(".rank").value.split(",").map(x => x.trim());
+        const rank = row.querySelector(".rank").value.trim();
         const choice = row.querySelector(".choice").value;
         const responses = Array.from(row.querySelectorAll(".response")).map(select => select.value);
 
-        // 점수 계산
+        // 1번 질문 응답에 따라 메인 향 결정
+        const mainCategoryCode = rank[0];
+        let mainCategory = "";
+        if (mainCategoryCode === 'A') mainCategory = "Herb";
+        else if (mainCategoryCode === 'B') mainCategory = "Fruit";
+        else if (mainCategoryCode === 'C') mainCategory = "Cloud";
+        else if (mainCategoryCode === 'D') mainCategory = "Floral";
+
+        const mainPerfume = perfumes[mainCategory]?.Main[choice - 1] || "기본 메인 향";
+
+        // 3, 4, 5번 질문 응답에 따라 서브 향 점수 계산
         let scoreLower = 0, scoreMedium = 0, scoreHigher = 0;
         responses.forEach(response => {
             if (response === "전혀 아니다") scoreLower += 3;
@@ -43,13 +53,15 @@ function calculateRecommendations() {
             else if (response === "매우 그렇다") scoreHigher += 3;
         });
 
-        // 메인 향 결정
-        const mainCategory = rank[0];
-        const mainPerfume = perfumes[mainCategory]?.Main[choice - 1] || "기본 메인 향";
-
         // 서브 향 결정
-        const subCategories = rank.slice(1, 3);
-        const selectedSubPerfumes = subCategories.map(category => {
+        const subCategories = rank.slice(1, 3).split("");  // 서브 향 그룹 결정
+        const selectedSubPerfumes = subCategories.map(categoryCode => {
+            let category = "";
+            if (categoryCode === 'A') category = "Herb";
+            else if (categoryCode === 'B') category = "Fruit";
+            else if (categoryCode === 'C') category = "Cloud";
+            else if (categoryCode === 'D') category = "Floral";
+            
             const subOptions = perfumes[category]?.Sub || [];
             const scoredSubOptions = subOptions.map(sub => ({
                 name: sub,
