@@ -1,34 +1,21 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
   background-color: #f7f0e9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-.container {
-  width: 90%;
-  max-width: 800px;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  text-align: center;
 }
 
 h1 {
-  font-size: 28px;
   color: #4f3b30;
-  margin-bottom: 20px;
+  font-size: 28px;
+  margin-top: 20px;
 }
 
 table {
-  width: 100%;
+  width: 90%;
+  margin: 20px auto;
   border-collapse: collapse;
-  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
@@ -40,7 +27,6 @@ th, td {
 th {
   background-color: #f0e6dc;
   color: #5a5a5a;
-  font-weight: bold;
 }
 
 input, select {
@@ -52,7 +38,6 @@ input, select {
 }
 
 button {
-  margin: 20px;
   padding: 12px 24px;
   font-size: 16px;
   color: #fff;
@@ -65,8 +50,4 @@ button {
 
 button:hover {
   background-color: #6b3f22;
-}
-
-.result {
-  margin-top: 20px;
 }
